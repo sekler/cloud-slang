@@ -11,6 +11,6 @@ operations:
           if not is_equal:
               print "Got: " + param + " expected: " + value
       results:
-        - SUCCESS: bool(is_equal)
+        - SUCCESS: is_equal == "True"
         - FAILURE
 
