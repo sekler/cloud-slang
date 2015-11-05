@@ -74,7 +74,7 @@ public class TestCasesYamlParser {
             String content = objectMapper.writeValueAsString(map);
             return objectMapper.readValue(content, SlangTestCase.class);
         } catch (IOException e) {
-            throw new RuntimeException("Error parsing slang test case", e);
+            throw new RuntimeException("Error parsing slang test case. Test case structure is invalid", e);
         }
     }
 
