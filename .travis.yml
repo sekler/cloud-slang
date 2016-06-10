@@ -4,6 +4,8 @@ jdk:
   - oraclejdk8
   - openjdk7
 
+sudo: required
+
 before_install:
   - mvn --version
   - sudo cp ./simplelogger.properties /usr/local/maven/conf/logging/simplelogger.properties
