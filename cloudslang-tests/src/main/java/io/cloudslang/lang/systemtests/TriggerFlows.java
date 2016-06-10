@@ -47,7 +47,7 @@ public class TriggerFlows {
     @Autowired
     private Slang slang;
 
-    public ScoreEvent runSync(
+    public synchronized ScoreEvent runSync(
             CompilationArtifact compilationArtifact,
             Map<String, Value> userInputs,
             Set<SystemProperty> systemProperties) {
@@ -75,7 +75,8 @@ public class TriggerFlows {
         }
     }
 
-    public RuntimeInformation runWithData(CompilationArtifact compilationArtifact, Map<String, Value> userInputs, Set<SystemProperty> systemProperties) {
+    public synchronized RuntimeInformation runWithData(CompilationArtifact compilationArtifact, Map<String, Value> userInputs, Set<SystemProperty> systemProperties) {
+        System.out.println("*** " + this);
         RunDataAggregatorListener runDataAggregatorListener = new RunDataAggregatorListener();
         slang.subscribeOnEvents(runDataAggregatorListener, STEP_EVENTS);
 

@@ -110,7 +110,8 @@ public abstract class SystemsTestsParent {
     }
 
 	public RuntimeInformation triggerWithData(CompilationArtifact compilationArtifact, Map<String, Value> userInputs, Set<SystemProperty> systemProperties) {
-		return triggerFlows.runWithData(compilationArtifact, userInputs, systemProperties);
+        System.out.println("*** " + this);
+        return triggerFlows.runWithData(compilationArtifact, userInputs, systemProperties);
 	}
 
     protected List<String> getStepsOnly(Map<String, StepData> stepsData) {
