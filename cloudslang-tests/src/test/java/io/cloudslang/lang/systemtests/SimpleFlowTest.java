@@ -16,6 +16,7 @@ import io.cloudslang.lang.entities.SystemProperty;
 import io.cloudslang.lang.entities.bindings.values.Value;
 import io.cloudslang.lang.entities.bindings.values.ValueFactory;
 import io.cloudslang.lang.runtime.events.LanguageEventData;
+import io.cloudslang.lang.runtime.steps.AbstractExecutionData;
 import io.cloudslang.score.events.ScoreEvent;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
@@ -164,6 +165,8 @@ public class SimpleFlowTest extends SystemsTestsParent {
     @Test
     public void testFlowWithSameInputNameAsStep() throws Exception {
         System.out.println("*** DEBUG-1 testFlowWithSameInputNameAsStep");
+        AbstractExecutionData.eventsCount = 0;
+
         URI resource = getClass().getResource("/yaml/flow_with_same_input_name_as_step.sl").toURI();
         URI operation1 = getClass().getResource("/yaml/string_equals.sl").toURI();
         URI operation2 = getClass().getResource("/yaml/test_op.sl").toURI();

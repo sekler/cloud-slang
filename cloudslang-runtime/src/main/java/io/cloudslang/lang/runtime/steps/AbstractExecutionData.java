@@ -20,6 +20,7 @@ import io.cloudslang.lang.runtime.env.ParentFlowStack;
 import io.cloudslang.lang.runtime.env.RunEnvironment;
 import io.cloudslang.lang.runtime.events.LanguageEventData;
 import io.cloudslang.score.lang.ExecutionRuntimeServices;
+import java.util.HashSet;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.Serializable;
@@ -29,8 +30,34 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import org.python.google.common.collect.Sets;
 
 public abstract class AbstractExecutionData {
+
+    private final static HashSet<String> FINISHED_EVENTS =
+            Sets.newHashSet(ScoreLangConstants.EVENT_EXECUTION_FINISHED, ScoreLangConstants.SLANG_EXECUTION_EXCEPTION);
+
+    private final static HashSet<String> STEP_EVENTS =
+            Sets.newHashSet(
+                    ScoreLangConstants.EVENT_INPUT_END,
+                    ScoreLangConstants.EVENT_OUTPUT_END,
+                    ScoreLangConstants.EVENT_ARGUMENT_START,
+                    ScoreLangConstants.EVENT_ARGUMENT_END
+            );
+
+    private final static HashSet<String> FINISHED_EVENTS_STEP_EVENTS;
+
+    private final static HashSet<String> BRANCH_EVENTS = Sets.newHashSet(ScoreLangConstants.EVENT_BRANCH_END);
+
+    private final static HashSet<String> PARALLEL_LOOP_EVENTS = Sets.newHashSet(ScoreLangConstants.EVENT_JOIN_BRANCHES_END);
+
+    static {
+        FINISHED_EVENTS_STEP_EVENTS = new HashSet<>();
+        FINISHED_EVENTS_STEP_EVENTS.addAll(FINISHED_EVENTS);
+        FINISHED_EVENTS_STEP_EVENTS.addAll(STEP_EVENTS);
+    }
+
+    public static int eventsCount = 0;
 
     public void sendStartBindingInputsEvent(List<Input> inputs,
                                           RunEnvironment runEnv,
@@ -140,6 +167,13 @@ public abstract class AbstractExecutionData {
             eventData.put(field.getKey(), LanguageEventData.maskSensitiveValues(field.getValue()));
         }
         runtimeServices.addEvent(type, eventData);
+        if (STEP_EVENTS.contains(type)) {
+            eventsCount++;
+        }
+        if (FINISHED_EVENTS.contains(type)) {
+            System.out.println("*** DEBUG-2 " + eventsCount + " " + type);
+            eventsCount = 0;
+        }
     }
 
     protected void updateCallArgumentsAndPushContextToStack(RunEnvironment runEnvironment, Context currentContext, Map<String, Value> callArguments) {
