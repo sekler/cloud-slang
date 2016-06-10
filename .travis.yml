@@ -6,6 +6,7 @@ jdk:
 
 before_install:
   - mvn --version
+  - cp ./simplelogger.properties /usr/local/maven/conf/logging/simplelogger.properties
 
 after_success:
   - mvn cobertura:cobertura coveralls:report
