@@ -120,7 +120,7 @@ public abstract class AbstractExecutionData {
     }
 
     @SafeVarargs
-    public static void fireEvent(ExecutionRuntimeServices runtimeServices,
+    public synchronized static void fireEvent(ExecutionRuntimeServices runtimeServices,
                                  String type,
                                  String description,
                                  String path,
