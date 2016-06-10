@@ -94,11 +94,11 @@ public class TriggerFlows {
 
         runSync(compilationArtifact, userInputs, systemProperties);
 
-//        try {
-//            Thread.sleep(2000L);     /* TODO : remove this! only to test unstable navigation tests*/
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            Thread.sleep(2000L);     /* TODO : remove this! only to test unstable navigation tests*/
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         Map<String, StepData> steps = runDataAggregatorListener.aggregate();
         Map<String, List<StepData>> branchesByPath = branchAggregatorListener.aggregate();
