@@ -86,7 +86,7 @@ public class TriggerFlows {
         slang.subscribeOnEvents(joinAggregatorListener, PARALLEL_LOOP_EVENTS);
 
         try {
-            Thread.sleep(2000L);      /* TODO : remove this! only to test unstable navigation tests*/
+            Thread.sleep(20000L);      /* TODO : remove this! only to test unstable navigation tests*/
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -94,7 +94,7 @@ public class TriggerFlows {
         runSync(compilationArtifact, userInputs, systemProperties);
 
         try {
-            Thread.sleep(2000L);     /* TODO : remove this! only to test unstable navigation tests*/
+            Thread.sleep(20000L);     /* TODO : remove this! only to test unstable navigation tests*/
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
