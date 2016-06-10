@@ -163,6 +163,7 @@ public class SimpleFlowTest extends SystemsTestsParent {
 
     @Test
     public void testFlowWithSameInputNameAsStep() throws Exception {
+        System.out.println("*** DEBUG-1 testFlowWithSameInputNameAsStep");
         URI resource = getClass().getResource("/yaml/flow_with_same_input_name_as_step.sl").toURI();
         URI operation1 = getClass().getResource("/yaml/string_equals.sl").toURI();
         URI operation2 = getClass().getResource("/yaml/test_op.sl").toURI();
