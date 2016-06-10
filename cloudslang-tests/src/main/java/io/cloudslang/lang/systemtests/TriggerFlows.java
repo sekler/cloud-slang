@@ -73,11 +73,11 @@ public class TriggerFlows {
         int c = 0;
         try {
             ScoreEvent event = finishEvent.take();
-            while(!event.getEventType().equals(ScoreLangConstants.EVENT_EXECUTION_FINISHED)) {
+            while(!(event.getEventType().equals(ScoreLangConstants.EVENT_EXECUTION_FINISHED) || event.getEventType().equals(ScoreLangConstants.SLANG_EXECUTION_EXCEPTION))) {
                 ++c;
                 event = finishEvent.take();
             }
-            System.out.println("*** DEBUG-1 " + c);
+            System.out.println("*** DEBUG-1 " + c + " " + event.getEventType());
             if (event.getEventType().equals(ScoreLangConstants.SLANG_EXECUTION_EXCEPTION)){
                 LanguageEventData languageEvent = (LanguageEventData) event.getData();
                 throw new RuntimeException(languageEvent.getException());
