@@ -40,9 +40,17 @@ public class TriggerFlows {
                     ScoreLangConstants.EVENT_ARGUMENT_END
             );
 
+    private final static HashSet<String> FINISHED_EVENTS_STEP_EVENTS;
+
     private final static HashSet<String> BRANCH_EVENTS = Sets.newHashSet(ScoreLangConstants.EVENT_BRANCH_END);
 
     private final static HashSet<String> PARALLEL_LOOP_EVENTS = Sets.newHashSet(ScoreLangConstants.EVENT_JOIN_BRANCHES_END);
+
+    static {
+        FINISHED_EVENTS_STEP_EVENTS = new HashSet<>();
+        FINISHED_EVENTS_STEP_EVENTS.addAll(FINISHED_EVENTS);
+        FINISHED_EVENTS_STEP_EVENTS.addAll(STEP_EVENTS);
+    }
 
     @Autowired
     private Slang slang;
@@ -58,12 +66,18 @@ public class TriggerFlows {
                 finishEvent.add(event);
             }
         };
-        slang.subscribeOnEvents(finishListener, FINISHED_EVENTS);
+        slang.subscribeOnEvents(finishListener, FINISHED_EVENTS_STEP_EVENTS);
 
         slang.run(compilationArtifact, userInputs, systemProperties);
 
+        int c = 0;
         try {
             ScoreEvent event = finishEvent.take();
+            while(!event.getEventType().equals(ScoreLangConstants.EVENT_EXECUTION_FINISHED)) {
+                ++c;
+                event = finishEvent.take();
+            }
+            System.out.println("*** DEBUG-1 " + c);
             if (event.getEventType().equals(ScoreLangConstants.SLANG_EXECUTION_EXCEPTION)){
                 LanguageEventData languageEvent = (LanguageEventData) event.getData();
                 throw new RuntimeException(languageEvent.getException());
