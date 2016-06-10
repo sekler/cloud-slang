@@ -26,7 +26,12 @@ public abstract class AbstractAggregatorListener implements ScoreEventListener {
 
     private static final Logger logger = Logger.getLogger(AbstractAggregatorListener.class);
 
-    private final List<LanguageEventData> events = new ArrayList<>();
+    private final List<LanguageEventData> events;
+
+    public AbstractAggregatorListener() {
+        events = new ArrayList<>();
+        logger.info("*** [" + this.toString() + "] events init [" + events.size() + "]");
+    }
 
     public List<LanguageEventData> getEvents() {
         return events;
@@ -36,11 +41,11 @@ public abstract class AbstractAggregatorListener implements ScoreEventListener {
     public synchronized void onEvent(ScoreEvent event) throws InterruptedException {
         LanguageEventData languageEvent = (LanguageEventData) event.getData();
         int b = events.size();
-        logger.info("*** " + b);
+        logger.info("*** [" + this.toString() + "] " + b);
         events.add(languageEvent);
         int a = events.size();
-        logger.info("*** " + a + (a == (b+1) ? "" : "GOT YOU"));
-        logger.info("*** [" + event.getEventType() + "] " + languageEvent);
+        logger.info("*** [" + this.toString() + "] " + a + (a == (b+1) ? "" : "GOT YOU"));
+        logger.info("*** [" + this.toString() + "] [" + event.getEventType() + "] " + languageEvent);
     }
 
 }
