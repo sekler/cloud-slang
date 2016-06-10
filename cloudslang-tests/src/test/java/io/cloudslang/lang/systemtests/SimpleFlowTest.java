@@ -18,6 +18,7 @@ import io.cloudslang.lang.entities.bindings.values.ValueFactory;
 import io.cloudslang.lang.runtime.events.LanguageEventData;
 import io.cloudslang.score.events.ScoreEvent;
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -37,6 +38,8 @@ import java.util.Set;
  * @author Bonczidai Levente
  */
 public class SimpleFlowTest extends SystemsTestsParent {
+
+    private final static Logger logger = Logger.getLogger(SimpleFlowTest.class);
 
 	private static final Set<SystemProperty> SYS_PROPS = new HashSet<>();
     @SuppressWarnings("unchecked")
@@ -176,6 +179,7 @@ public class SimpleFlowTest extends SystemsTestsParent {
 
         Map<String, StepData> stepsData = triggerWithData(compilationArtifact, userInputs, EMPTY_SET).getSteps();
 
+        logger.info("*** " + stepsData);
         List<String> actualSteps = getStepsOnly(stepsData);
         Assert.assertEquals(2, actualSteps.size());
         StepData firstStep = stepsData.get(FIRST_STEP_PATH);

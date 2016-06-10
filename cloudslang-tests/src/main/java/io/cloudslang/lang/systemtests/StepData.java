@@ -12,6 +12,7 @@
 
 import java.io.Serializable;
 import java.util.Map;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class StepData {
 
@@ -56,4 +57,15 @@ public class StepData {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("path", path)
+                .append("name", name)
+                .append("inputs", inputs)
+                .append("outputs", outputs)
+                .append("executableName", executableName)
+                .append("result", result)
+                .toString();
+    }
 }

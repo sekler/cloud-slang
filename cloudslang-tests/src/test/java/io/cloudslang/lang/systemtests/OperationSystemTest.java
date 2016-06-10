@@ -18,6 +18,7 @@ import io.cloudslang.lang.entities.bindings.values.SensitiveValue;
 import io.cloudslang.lang.entities.bindings.values.Value;
 import io.cloudslang.lang.entities.bindings.values.ValueFactory;
 import io.cloudslang.score.events.ScoreEvent;
+import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -34,6 +35,8 @@ import java.util.Map;
  */
 
 public class OperationSystemTest extends SystemsTestsParent {
+
+    private final static Logger logger = Logger.getLogger(OperationSystemTest.class);
 
     @Test
     public void testCompileAndRunOperationBasic() throws Exception {
@@ -85,6 +88,7 @@ public class OperationSystemTest extends SystemsTestsParent {
         userInputs.put("host", ValueFactory.create("localhost"));
         userInputs.put("port", ValueFactory.create("8080"));
         Map<String, StepData> stepsData = triggerWithData(compilationArtifact, userInputs, new HashSet<SystemProperty>()).getSteps();
+        logger.info("*** " + stepsData);
         StepData execStepData = stepsData.get(EXEC_START_PATH);
         Assert.assertEquals(ScoreLangConstants.SUCCESS_RESULT, execStepData.getResult());
         Assert.assertEquals("http://localhost:8080", execStepData.getOutputs().get("url"));
