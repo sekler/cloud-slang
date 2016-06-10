@@ -61,6 +61,9 @@ public class OperationSystemTest extends SystemsTestsParent {
     }
     @Test
     public void testCompileAndRunOperationWithDataMissingInput() throws Exception {
+        System.out.println("*** DEBUG-1 testCompileAndRunOperationWithDataMissingInput");
+        AbstractExecutionData.eventsCount = 0;
+
         URL resource = getClass().getResource("/yaml/test_op_2.sl");
         CompilationArtifact compilationArtifact = slang.compile(SlangSource.fromFile(resource.toURI()), null);
         //Trigger ExecutionPlan

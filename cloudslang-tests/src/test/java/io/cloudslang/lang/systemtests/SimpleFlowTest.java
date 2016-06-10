@@ -83,6 +83,9 @@ public class SimpleFlowTest extends SystemsTestsParent {
 
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testSimpleFlowBasicMissingSysProps() throws Exception {
+        System.out.println("*** DEBUG-1 testSimpleFlowBasicMissingSysProps");
+        AbstractExecutionData.eventsCount = 0;
+
         Map<String, Value> inputs = new HashMap<>();
         inputs.put("input1", ValueFactory.create("-2"));
         inputs.put("time_zone_as_string", ValueFactory.create("+2"));
