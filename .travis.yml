@@ -7,7 +7,6 @@ jdk:
  sudo: required
 
 before_install:
-  #- mvn --version
   - sudo cp ./simplelogger.properties /usr/local/maven/conf/logging/simplelogger.properties
 
 after_success:
