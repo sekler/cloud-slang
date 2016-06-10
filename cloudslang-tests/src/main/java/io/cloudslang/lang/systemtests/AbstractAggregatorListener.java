@@ -15,6 +15,7 @@ import io.cloudslang.score.events.ScoreEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.log4j.Logger;
 
 /**
  * Date: 4/8/2015
@@ -22,6 +23,8 @@ import java.util.List;
  * @author Bonczidai Levente
  */
 public abstract class AbstractAggregatorListener implements ScoreEventListener {
+
+    private static final Logger logger = Logger.getLogger(AbstractAggregatorListener.class);
 
     private final List<LanguageEventData> events = new ArrayList<>();
 
@@ -32,7 +35,12 @@ public abstract class AbstractAggregatorListener implements ScoreEventListener {
     @Override
     public synchronized void onEvent(ScoreEvent event) throws InterruptedException {
         LanguageEventData languageEvent = (LanguageEventData) event.getData();
+        int b = events.size();
+        logger.info("*** " + b);
         events.add(languageEvent);
+        int a = events.size();
+        logger.info("*** " + a + (a == (b+1) ? "" : "GOT YOU"));
+        logger.info("*** [" + event.getEventType() + "] " + languageEvent);
     }
 
 }
