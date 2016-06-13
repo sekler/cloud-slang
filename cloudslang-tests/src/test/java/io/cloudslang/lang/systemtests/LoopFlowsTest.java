@@ -16,7 +16,9 @@ import io.cloudslang.lang.entities.SystemProperty;
 import io.cloudslang.lang.entities.bindings.values.Value;
 import io.cloudslang.lang.entities.bindings.values.ValueFactory;
 import io.cloudslang.lang.runtime.steps.AbstractExecutionData;
+import io.cloudslang.score.lang.ExecutionRuntimeServices;
 import io.cloudslang.worker.execution.services.ExecutionServiceImpl;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -80,6 +82,7 @@ public class LoopFlowsTest extends SystemsTestsParent{
 
     @Test
     public void testFlowWithLoopsWithDefaultBreak() throws Exception {
+        SimpleFlowTest.initStuff("testFlowWithLoopsWithDefaultBreak");
         URI resource = getClass().getResource("/yaml/loops/loop_with_default_break.sl").toURI();
         URI operation1 = getClass().getResource("/yaml/loops/operation_that_fails_when_value_is_2.sl").toURI();
 
@@ -125,6 +128,8 @@ public class LoopFlowsTest extends SystemsTestsParent{
 
     @Test
     public void testFlowWithMapLoops() throws Exception {
+        SimpleFlowTest.initStuff("testFlowWithMapLoops");
+
         URI resource = getClass().getResource("/yaml/loops/simple_loop_with_map.sl").toURI();
         URI operation1 = getClass().getResource("/yaml/loops/print.sl").toURI();
 
@@ -196,11 +201,14 @@ public class LoopFlowsTest extends SystemsTestsParent{
         Assert.assertEquals(3, actualSteps.size());
     }
 
+    @After
+    public void tearDown() {
+        ExecutionRuntimeServices.debug = false;
+    }
+
     @Test
     public void testFlowWithMapLoopsWithBreak() throws Exception {
-        System.out.println("*** DEBUG-1 testFlowWithMapLoopsWithBreak");
-        AbstractExecutionData.eventsCount = 0;
-        ExecutionServiceImpl.eventsCount = 0;
+        SimpleFlowTest.initStuff("testFlowWithMapLoopsWithBreak");
 
         URI resource = getClass().getResource("/yaml/loops/loop_with_break_with_map.sl").toURI();
         URI operation1 = getClass().getResource("/yaml/loops/operation_that_goes_to_custom_when_value_is_2.sl").toURI();

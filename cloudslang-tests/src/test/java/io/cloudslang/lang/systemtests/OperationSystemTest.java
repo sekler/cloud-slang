@@ -19,7 +19,9 @@ import io.cloudslang.lang.entities.bindings.values.Value;
 import io.cloudslang.lang.entities.bindings.values.ValueFactory;
 import io.cloudslang.lang.runtime.steps.AbstractExecutionData;
 import io.cloudslang.score.events.ScoreEvent;
+import io.cloudslang.score.lang.ExecutionRuntimeServices;
 import io.cloudslang.worker.execution.services.ExecutionServiceImpl;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -47,6 +49,12 @@ public class OperationSystemTest extends SystemsTestsParent {
         Assert.assertEquals(ScoreLangConstants.EVENT_EXECUTION_FINISHED, event.getEventType());
     }
 
+    @After
+    public void tearDown() {
+        ExecutionRuntimeServices.debug = false;
+    }
+
+
     @Test
     public void testCompileAndRunOperationWithData() throws Exception {
         URL resource = getClass().getResource("/yaml/test_op_2.sl");
@@ -62,9 +70,7 @@ public class OperationSystemTest extends SystemsTestsParent {
     }
     @Test
     public void testCompileAndRunOperationWithDataMissingInput() throws Exception {
-        System.out.println("*** DEBUG-1 testCompileAndRunOperationWithDataMissingInput");
-        AbstractExecutionData.eventsCount = 0;
-        ExecutionServiceImpl.eventsCount = 0;
+        SimpleFlowTest.initStuff("testCompileAndRunOperationWithDataMissingInput");
 
         URL resource = getClass().getResource("/yaml/test_op_2.sl");
         CompilationArtifact compilationArtifact = slang.compile(SlangSource.fromFile(resource.toURI()), null);
@@ -116,9 +122,7 @@ public class OperationSystemTest extends SystemsTestsParent {
 
     @Test
     public void testOperationWithJavaActionWithSerializableOutput() throws Exception {
-        System.out.println("*** DEBUG-1 testOperationWithJavaActionWithSerializableOutput");
-        AbstractExecutionData.eventsCount = 0;
-        ExecutionServiceImpl.eventsCount = 0;
+        SimpleFlowTest.initStuff("testOperationWithJavaActionWithSerializableOutput");
 
         URI resource = getClass().getResource("/yaml/java_action_serializable_op.sl").toURI();
 

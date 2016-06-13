@@ -89,12 +89,16 @@ public class SimpleFlowTest extends SystemsTestsParent {
         ExecutionRuntimeServices.debug = false;
     }
 
-    @Test(timeout = DEFAULT_TIMEOUT)
-    public void testSimpleFlowBasicMissingSysProps() throws Exception {
+    public static void initStuff(String name) {
         ExecutionRuntimeServices.debug = true;
-        System.out.println("*** DEBUG-1 testSimpleFlowBasicMissingSysProps");
+        System.out.println("*** DEBUG-1 " + name);
         AbstractExecutionData.eventsCount = 0;
         ExecutionServiceImpl.eventsCount = 0;
+    }
+
+    @Test(timeout = DEFAULT_TIMEOUT)
+    public void testSimpleFlowBasicMissingSysProps() throws Exception {
+        initStuff("testSimpleFlowBasicMissingSysProps");
 
         Map<String, Value> inputs = new HashMap<>();
         inputs.put("input1", ValueFactory.create("-2"));
@@ -177,9 +181,7 @@ public class SimpleFlowTest extends SystemsTestsParent {
 
     @Test
     public void testFlowWithSameInputNameAsStep() throws Exception {
-        System.out.println("*** DEBUG-1 testFlowWithSameInputNameAsStep");
-        AbstractExecutionData.eventsCount = 0;
-        ExecutionServiceImpl.eventsCount = 0;
+        initStuff("testFlowWithSameInputNameAsStep");
 
         URI resource = getClass().getResource("/yaml/flow_with_same_input_name_as_step.sl").toURI();
         URI operation1 = getClass().getResource("/yaml/string_equals.sl").toURI();
