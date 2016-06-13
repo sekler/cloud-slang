@@ -18,8 +18,10 @@ import io.cloudslang.lang.entities.bindings.values.ValueFactory;
 import io.cloudslang.lang.runtime.events.LanguageEventData;
 import io.cloudslang.lang.runtime.steps.AbstractExecutionData;
 import io.cloudslang.score.events.ScoreEvent;
+import io.cloudslang.score.lang.ExecutionRuntimeServices;
 import io.cloudslang.worker.execution.services.ExecutionServiceImpl;
 import org.apache.commons.io.FileUtils;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -82,8 +84,14 @@ public class SimpleFlowTest extends SystemsTestsParent {
         compileAndRunSimpleFlow(new HashMap<String, Value>(), EMPTY_SET);
     }
 
+    @After
+    public void tearDown() {
+        ExecutionRuntimeServices.debug = false;
+    }
+
     @Test(timeout = DEFAULT_TIMEOUT)
     public void testSimpleFlowBasicMissingSysProps() throws Exception {
+        ExecutionRuntimeServices.debug = true;
         System.out.println("*** DEBUG-1 testSimpleFlowBasicMissingSysProps");
         AbstractExecutionData.eventsCount = 0;
         ExecutionServiceImpl.eventsCount = 0;
