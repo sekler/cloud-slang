@@ -5,7 +5,7 @@ jdk:
   - openjdk7
 
 install:
-  - mkdir score && cd score && git clone -b sporadic_1 https://github.com/CloudSlang/cloud-slang.git && mvn install
+  - mkdir score && cd score && git clone -b sporadic_1 https://github.com/CloudSlang/score.git && mvn install
 
 before_deploy: >
   ant -f build/ant.xml
