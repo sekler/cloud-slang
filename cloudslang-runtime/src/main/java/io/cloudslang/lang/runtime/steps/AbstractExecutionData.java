@@ -51,6 +51,8 @@ public abstract class AbstractExecutionData {
 
     private final static HashSet<String> PARALLEL_LOOP_EVENTS = Sets.newHashSet(ScoreLangConstants.EVENT_JOIN_BRANCHES_END);
 
+    public static int e_count = 0;
+
     static {
         FINISHED_EVENTS_STEP_EVENTS = new HashSet<>();
         FINISHED_EVENTS_STEP_EVENTS.addAll(FINISHED_EVENTS);
@@ -166,6 +168,7 @@ public abstract class AbstractExecutionData {
             //noinspection unchecked
             eventData.put(field.getKey(), LanguageEventData.maskSensitiveValues(field.getValue()));
         }
+        eventData.put("e_count", e_count++);
         runtimeServices.addEvent(type, eventData);
         if (STEP_EVENTS.contains(type)) {
             eventsCount++;
