@@ -16,6 +16,7 @@ import io.cloudslang.lang.entities.SystemProperty;
 import io.cloudslang.lang.entities.bindings.values.Value;
 import io.cloudslang.lang.entities.bindings.values.ValueFactory;
 import io.cloudslang.lang.runtime.steps.AbstractExecutionData;
+import io.cloudslang.worker.execution.services.ExecutionServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -199,6 +200,7 @@ public class LoopFlowsTest extends SystemsTestsParent{
     public void testFlowWithMapLoopsWithBreak() throws Exception {
         System.out.println("*** DEBUG-1 testFlowWithMapLoopsWithBreak");
         AbstractExecutionData.eventsCount = 0;
+        ExecutionServiceImpl.eventsCount = 0;
 
         URI resource = getClass().getResource("/yaml/loops/loop_with_break_with_map.sl").toURI();
         URI operation1 = getClass().getResource("/yaml/loops/operation_that_goes_to_custom_when_value_is_2.sl").toURI();

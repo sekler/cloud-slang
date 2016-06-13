@@ -18,6 +18,7 @@ import io.cloudslang.lang.entities.bindings.values.ValueFactory;
 import io.cloudslang.lang.runtime.events.LanguageEventData;
 import io.cloudslang.lang.runtime.steps.AbstractExecutionData;
 import io.cloudslang.score.events.ScoreEvent;
+import io.cloudslang.worker.execution.services.ExecutionServiceImpl;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.Test;
@@ -85,6 +86,7 @@ public class SimpleFlowTest extends SystemsTestsParent {
     public void testSimpleFlowBasicMissingSysProps() throws Exception {
         System.out.println("*** DEBUG-1 testSimpleFlowBasicMissingSysProps");
         AbstractExecutionData.eventsCount = 0;
+        ExecutionServiceImpl.eventsCount = 0;
 
         Map<String, Value> inputs = new HashMap<>();
         inputs.put("input1", ValueFactory.create("-2"));
@@ -169,6 +171,7 @@ public class SimpleFlowTest extends SystemsTestsParent {
     public void testFlowWithSameInputNameAsStep() throws Exception {
         System.out.println("*** DEBUG-1 testFlowWithSameInputNameAsStep");
         AbstractExecutionData.eventsCount = 0;
+        ExecutionServiceImpl.eventsCount = 0;
 
         URI resource = getClass().getResource("/yaml/flow_with_same_input_name_as_step.sl").toURI();
         URI operation1 = getClass().getResource("/yaml/string_equals.sl").toURI();
