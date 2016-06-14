@@ -102,9 +102,6 @@ flow:
                 '_suffix'
                 }
             - step_argument_null: null
-        navigate:
-          - SUCCESS: i_dont_exist
-          - FAILURE: FAILURE
         publish:
           - output_no_expression
           - publish_int: 22
