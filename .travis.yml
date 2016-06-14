@@ -4,6 +4,9 @@ jdk:
   - oraclejdk8
   - openjdk7
 
+install:
+  - git clone -b sporadic_2 https://github.com/CloudSlang/score.git && cd score && mvn install -DskipTests=true && cd ..
+
 before_deploy: >
   ant -f build/ant.xml
   

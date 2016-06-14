@@ -32,6 +32,8 @@ import java.util.Map.Entry;
 
 public abstract class AbstractExecutionData {
 
+    public static int e_count = 0;
+
     public void sendStartBindingInputsEvent(List<Input> inputs,
                                           RunEnvironment runEnv,
                                           ExecutionRuntimeServices executionRuntimeServices,
@@ -135,6 +137,7 @@ public abstract class AbstractExecutionData {
         eventData.setTimeStamp(new Date());
         eventData.setExecutionId(runtimeServices.getExecutionId());
         eventData.setPath(path);
+        eventData.put("e_count", e_count++);
         for (Entry<String, ? extends Serializable> field : fields) {
             //noinspection unchecked
             eventData.put(field.getKey(), LanguageEventData.maskSensitiveValues(field.getValue()));
